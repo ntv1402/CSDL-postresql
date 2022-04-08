@@ -1,0 +1,15 @@
+ALTER TABLE countries  RENAME TO country_new; 
+ALTER TABLE locations ADD COLUMN region_id Int; 
+ALTER TABLE locations ADD COLUMN ID Int FIRST;
+ALTER TABLE locations ADD region-id Int AFTER state_province;
+ALTER TABLE locations ADD COLUMN country_id int; 
+ALTER TABLE locations DROP COLUMN city; 
+ALTER TABLE locations RENAME COLUMN state_province TO state; 
+ALTER TABLE locations ADD PRIMARY KEY (location_id); 
+ALTER TABLE locations  ADD CONSTRAINT lct_pri PRIMARY KEY (location_id, country_id); 
+ALTER TABLE locations DROP CONSTRAINT lct_pri; 
+ALTER TABLE job_history ADD FOREIGN KEY (job_id) REFERENCES  jobs (job_id); 
+ALTER TABLE job_history ADD CONSTRAINT fk_job_id FOREIGN KEY (job_id) REFERENCES  jobs (job_id); 
+ALTER TABLE locations DROP CONSTRAINT fk_job_id; 
+CREATE INDEX indx_job_id ON job_history(job_id); 
+DROP INDEX indx_job_id; 
